@@ -168,3 +168,8 @@ This shows that neither pure Fear nor pure Greed guarantees better trading — b
 1. Clone this repository:
    ```bash
    git clone https://github.com/YOUR_USERNAME/trader-behavior-analysis.git
+2. Install dependencies:
+   pip install -r requirements.txt
+3. Open the notebook:
+   jupyter notebook analysis_clean.ipynb
+4. Run all cells in order.

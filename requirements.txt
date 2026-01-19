@@ -1,0 +1,17 @@
+pandas==2.2.0
+numpy==1.26.4
+matplotlib==3.8.2
+jupyter==1.0.0
+notebook==7.0.6
+
+"""
+Here’s what each one is for (so you can explain it if asked):
+
+pandas → Data loading, cleaning, merging, and analysis
+
+numpy → Numerical operations (used under the hood by pandas)
+
+matplotlib → All your visualizations (bar charts)
+
+jupyter / notebook → To run analysis_clean.ipynb
+"""

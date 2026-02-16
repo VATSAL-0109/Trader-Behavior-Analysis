@@ -1,0 +1,12 @@
+class node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+        
+root = node(5)
+root.left = node(1)
+root.right = node(3)
+root.left.right = node(4)
+
+print(root.right.data)

@@ -1,177 +1,156 @@
-# Trader Behavior Analysis: Fear vs Greed
+Trader Behavior Analysis: Fear vs Greed
+About This Project
 
-## 📌 About This Project
+In this project, I analyzed how market sentiment influences trader behavior and performance. I combined historical trading data from Hyperliquid with the Bitcoin Fear & Greed Index to study how traders perform under different emotional market conditions.
 
-In this project, I wanted to understand how market sentiment (Fear vs Greed) affects trader behavior and performance. I used historical Hyperliquid trading data and merged it with the Bitcoin Fear & Greed Index to analyze patterns in:
+The main question I wanted to answer was:
 
-- Profitability under different sentiment conditions  
-- How actively traders trade in Fear vs Greed  
-- How much risk they take (using position size as a proxy)  
-- Win rate across different sentiment regimes  
-- How profits compare to losses in each sentiment  
+Do traders perform better in Fear or Greed? And how does sentiment influence their trading decisions?
 
-The main question guiding this project was:  
-👉 *Do traders actually perform better in Fear or Greed? And how does sentiment influence their decisions?*
+To explore this, I looked at profitability, trading activity, risk-taking behavior, win rates, and the relationship between profits and losses across different sentiment regimes.
 
----
+Data Used
+1. Historical Trading Data (Hyperliquid)
 
-## 📊 Data Used
-
-### 1. Historical Trading Data (Hyperliquid)
 This dataset contains individual trade records, including:
-- `Timestamp IST`
-- `Coin`
-- `Side` (BUY/SELL)
-- `Execution Price`
-- `Start Position` (used as a proxy for risk-taking)
-- `Closed PnL`
-- Fees, Order ID, and other trade details  
 
-Each row represents one trade.
+Timestamp (IST)
 
-### 2. Bitcoin Fear & Greed Index
-This is a daily sentiment indicator that classifies market mood into:
-- Extreme Fear  
-- Fear  
-- Neutral  
-- Greed  
-- Extreme Greed  
+Coin
 
-I used this to label each trade based on the market sentiment of that day.
+Side (BUY/SELL)
 
----
+Execution Price
 
-## 🔧 What I Did (Methodology)
+Start Position (used as a proxy for risk-taking)
 
-### Data Preprocessing
-To make the data usable, I:
-- Converted timestamps into proper datetime format.  
-- Extracted a clean `date` column from the trading timestamps.  
-- Standardized the Fear & Greed `date` column so both datasets matched.  
-- Performed a **left merge** on `date` to attach sentiment to each trade.  
-- Created a cleaned dataset (`merged_clean`) by removing trades that didn’t have a matching sentiment label.
+Closed PnL
 
-### Analysis Performed
-Once the data was prepared, I analyzed:
-- Average profit (Closed PnL) by sentiment  
-- Number of trades under each sentiment  
-- Average position size (as a measure of risk-taking)  
-- Win rate by sentiment  
-- Average profit vs average loss in each sentiment  
+Fees, Order ID, and other trade details
 
----
+Each row represents a single executed trade.
 
-## 📈 Key Findings
+2. Bitcoin Fear & Greed Index
 
-### ✅ 1. Profitability vs Sentiment (Average PnL)
+This is a daily sentiment indicator that classifies overall market mood into five categories:
 
-| Sentiment | Avg Closed PnL |
-|-----------|----------------|
-| Extreme Greed | **205.82** |
-| Fear | **128.29** |
-| Greed | 53.99 |
-| Neutral | 27.09 |
-| Extreme Fear | 1.89 |
+Extreme Fear
 
-**What I observed:**  
-Traders were most profitable on average during **Extreme Greed**. Performance dropped significantly in Neutral and Greed conditions, and **Extreme Fear** days were almost unprofitable.
+Fear
 
----
+Neutral
 
-### ✅ 2. Trading Activity vs Sentiment
+Greed
 
-| Sentiment | Number of Trades |
-|-----------|-----------------|
-| Fear | **13,869** |
-| Greed | 11,292 |
-| Extreme Greed | 5,621 |
-| Neutral | 2,756 |
-| Extreme Fear | 2,326 |
+Extreme Greed
 
-**What this suggests:**  
-Traders were most active during **Fear**, likely because fear creates volatility and more trading opportunities. In **Extreme Fear**, many traders seemed to step back instead of trading.
+I used this dataset to label each trade based on the sentiment of the corresponding trading day.
 
----
+Methodology
+Data Preprocessing
 
-### ✅ 3. Risk-Taking (Position Size) vs Sentiment
+To prepare the data for analysis, I:
 
-| Sentiment | Avg Start Position |
-|-----------|-------------------|
-| Neutral | **89,199.59** |
-| Greed | 37,276.79 |
-| Extreme Greed | 24,593.24 |
-| Extreme Fear | 21,902.80 |
-| Fear | 8,146.36 |
+Converted timestamps into proper datetime format
 
-**My interpretation:**  
-Surprisingly, traders took the **largest positions in Neutral markets**, possibly because they felt more comfortable and perceived lower risk. During **Fear**, position sizes dropped sharply, showing clear risk aversion.
+Extracted a clean date column from the trading timestamps
 
----
+Standardized the Fear & Greed date column so both datasets aligned
 
-### ✅ 4. Win Rate by Sentiment
+Performed a left merge on date to attach sentiment labels to each trade
 
-| Sentiment | Win Rate |
-|-----------|---------|
-| Extreme Greed | **55.3%** |
-| Neutral | 49.5% |
-| Greed | 43.6% |
-| Fear | 38.2% |
-| Extreme Fear | 29.3% |
+Removed trades that did not have a matching sentiment value to create a clean merged dataset
 
-**Key takeaway:**  
-The best win rate was in **Extreme Greed**, while traders performed worst in **Extreme Fear**, confirming that panic conditions are very difficult to trade profitably.
+Analysis Performed
 
----
+After preparing the data, I analyzed:
 
-### ✅ 5. Profit vs Loss Behavior
+Average profit (Closed PnL) by sentiment
 
-| Sentiment | Avg Profit | Avg Loss |
-|-----------|------------|----------|
-| Extreme Greed | 417.56 | -463.18 |
-| Fear | 373.54 | -215.94 |
-| Greed | 198.20 | -413.50 |
-| Neutral | 61.76 | -31.24 |
-| Extreme Fear | 20.29 | -66.31 |
+Number of trades under each sentiment condition
 
-**What this shows:**
-- **Extreme Greed**: High profits, but also very large losses → aggressive risk-taking.  
-- **Fear**: Better risk-adjusted profile (big wins, relatively smaller losses).  
-- **Greed**: Poor risk profile — losses were much larger than profits.  
-- **Neutral**: Small wins and small losses — low risk, low reward.
+Average position size as a measure of risk-taking
 
----
+Win rate by sentiment
 
-## 🧠 Overall Conclusion
+Average profit vs average loss in each sentiment
 
-From this analysis, it’s clear that **market sentiment strongly influences trader behavior**.
+Key Findings
+1. Profitability vs Sentiment (Average PnL)
 
-- **Extreme Greed** was the most profitable and had the highest win rate.  
-- Traders were **most active in Fear**, but took the **smallest positions**.  
-- Traders took their **largest positions in Neutral markets**, even though profits were relatively low.
+Extreme Greed showed the highest average profit per trade.
+Performance dropped significantly in Neutral and Greed conditions.
+Extreme Fear days were almost unprofitable on average.
 
-This shows that neither pure Fear nor pure Greed guarantees better trading — behavior, risk-taking, and performance are all deeply linked to sentiment.
+This suggests that strong bullish sentiment tends to create favorable trading conditions, while panic conditions reduce profitability.
 
----
+2. Trading Activity vs Sentiment
 
-## 🛠️ Tools Used
+Trading activity was highest during Fear.
+It decreased during Extreme Fear.
 
-- Python  
-- Pandas  
-- NumPy  
-- Matplotlib  
-- Jupyter Notebook  
+This indicates that moderate fear may create volatility and trading opportunities, but extreme panic might cause traders to step back from the market.
 
----
+3. Risk-Taking (Position Size) vs Sentiment
 
-## ▶️ How to Run the Project
+The largest average position sizes were taken during Neutral markets.
+Position sizes dropped sharply during Fear.
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/trader-behavior-analysis.git
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-3. Open the notebook:
-   ```bash
-   jupyter notebook analysis_clean.ipynb
-4. Run all cells in order.
+This was an interesting finding. Traders appeared more comfortable taking larger positions in stable conditions, while they became more risk-averse when the market showed signs of fear.
+
+4. Win Rate by Sentiment
+
+Win rate was highest during Extreme Greed and lowest during Extreme Fear.
+
+This confirms that panic-driven markets are much harder to trade successfully, while strong bullish momentum improves trade success probability.
+
+5. Profit vs Loss Behavior
+
+Extreme Greed showed both high average profits and large average losses, indicating aggressive risk-taking.
+
+Fear had a more balanced profile, with relatively strong profits and controlled losses.
+
+Greed (but not extreme) showed a weaker risk profile, where losses were often larger than profits.
+
+Neutral markets showed small wins and small losses, reflecting lower volatility and lower risk.
+
+Overall Conclusion
+
+This analysis shows that market sentiment significantly influences trader behavior.
+
+Extreme Greed was the most profitable regime and had the highest win rate.
+Traders were most active during Fear but took smaller positions.
+The largest positions were taken during Neutral markets, even though profitability was not the highest there.
+
+The results suggest that neither fear nor greed alone guarantees better performance. Instead, trader behavior, risk exposure, and profitability are closely tied to the overall emotional state of the market.
+
+Tools Used
+
+Python
+
+Pandas
+
+NumPy
+
+Matplotlib
+
+Jupyter Notebook
+
+How to Run the Project
+
+Clone the repository:
+
+git clone https://github.com/YOUR_USERNAME/trader-behavior-analysis.git
+
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+
+Open the notebook:
+
+jupyter notebook analysis_clean.ipynb
+
+
+Run all cells in order.
